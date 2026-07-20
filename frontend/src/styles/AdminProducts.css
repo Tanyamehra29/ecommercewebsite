@@ -1,0 +1,226 @@
+.add-product{
+
+  min-height:80vh;
+  padding:50px;
+  background:#f8fafc;
+
+}
+
+
+.add-product h1{
+
+  text-align:center;
+  margin-bottom:30px;
+
+}
+
+
+
+.add-product form{
+
+  max-width:500px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+
+}
+
+
+
+.add-product input,
+.add-product textarea{
+
+  padding:15px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:16px;
+
+}
+
+
+
+.add-product textarea{
+
+  height:120px;
+
+}
+
+
+
+.add-product button{
+
+  padding:15px;
+  background:#2563eb;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:18px;
+
+}
+
+
+
+.add-product button:hover{
+
+  background:#1d4ed8;
+
+}
+.edit-btn{
+
+background:#2563eb;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:6px;
+margin-right:10px;
+cursor:pointer;
+
+}
+
+
+.delete-btn{
+
+background:red;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:6px;
+cursor:pointer;
+
+}
+.manage-products{
+
+padding:40px;
+background:#f8fafc;
+min-height:80vh;
+
+}
+
+
+
+.manage-products h1{
+
+text-align:center;
+margin-bottom:30px;
+
+}
+
+
+
+.product-table table{
+
+width:100%;
+background:white;
+border-collapse:collapse;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+
+}
+
+
+
+.product-table th{
+
+background:#2563eb;
+color:white;
+padding:15px;
+
+}
+
+
+
+.product-table td{
+
+padding:15px;
+text-align:center;
+border-bottom:1px solid #ddd;
+
+}
+
+
+
+.product-table img{
+
+width:70px;
+height:70px;
+object-fit:cover;
+border-radius:10px;
+
+}
+
+
+
+.delete-btn{
+
+background:#ef4444;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+
+}
+
+
+
+.delete-btn:hover{
+
+background:#dc2626;
+
+}
+.manage-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.add-btn{
+background:#16a34a;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+font-size:15px;
+font-weight:600;
+}
+
+.add-btn:hover{
+background:#15803d;
+}
+
+.product-image{
+width:70px;
+height:70px;
+object-fit:cover;
+border-radius:8px;
+}
+
+.edit-btn{
+background:#2563eb;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:6px;
+cursor:pointer;
+margin-right:8px;
+}
+
+.edit-btn:hover{
+background:#1d4ed8;
+}
+
+.delete-btn{
+background:#dc2626;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.delete-btn:hover{
+background:#b91c1c;
+}

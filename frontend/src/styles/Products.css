@@ -1,0 +1,208 @@
+/* ================= PRODUCTS PAGE ================= */
+
+
+.products-page{
+
+  min-height:80vh;
+
+  padding:60px 8%;
+
+  background:#f8fafc;
+
+}
+
+
+
+/* HEADER */
+
+
+.products-header{
+
+  text-align:center;
+
+  margin-bottom:40px;
+
+}
+
+
+.products-header h1{
+
+  font-size:42px;
+
+  color:#111827;
+
+  margin-bottom:10px;
+
+}
+
+
+
+.products-header p{
+
+  color:#6b7280;
+
+  font-size:18px;
+
+}
+
+
+
+
+
+/* ================= FILTER ================= */
+
+
+.filter-section{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:20px;
+
+  flex-wrap:wrap;
+
+  background:white;
+
+  padding:25px;
+
+  border-radius:20px;
+
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+
+  margin-bottom:30px;
+
+}
+
+
+
+
+.filter-section input,
+.filter-section select{
+
+
+  padding:14px 18px;
+
+  border-radius:12px;
+
+  border:1px solid #d1d5db;
+
+  outline:none;
+
+  font-size:16px;
+
+  width:230px;
+
+  transition:.3s;
+
+}
+
+
+
+.filter-section input:focus,
+.filter-section select:focus{
+
+  border-color:#2563eb;
+
+  box-shadow:0 0 8px rgba(37,99,235,.25);
+
+}
+
+
+
+
+
+/* PRODUCT COUNT */
+
+
+.product-count{
+
+  margin:25px 0;
+
+  color:#374151;
+
+  font-size:20px;
+
+}
+
+
+
+
+
+/* GRID */
+
+
+.product-grid{
+
+  display:grid;
+
+  grid-template-columns:
+
+  repeat(auto-fit,minmax(250px,1fr));
+
+
+  gap:30px;
+
+}
+
+
+
+
+
+/* EMPTY */
+
+
+.product-grid h2{
+
+  text-align:center;
+
+  color:#6b7280;
+
+}
+
+
+
+
+
+/* MOBILE */
+
+
+@media(max-width:768px){
+
+
+.products-page{
+
+  padding:35px 20px;
+
+}
+
+
+
+.products-header h1{
+
+  font-size:30px;
+
+}
+
+
+
+.filter-section{
+
+  flex-direction:column;
+
+}
+
+
+
+.filter-section input,
+.filter-section select{
+
+  width:100%;
+
+}
+
+
+
+}

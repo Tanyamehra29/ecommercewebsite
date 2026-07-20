@@ -1,0 +1,280 @@
+/* ================= ADD PRODUCT ================= */
+
+
+.add-product{
+
+min-height:80vh;
+
+background:#f8fafc;
+
+padding:60px 8%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:flex-start;
+
+}
+
+
+
+
+
+.product-form{
+
+background:white;
+
+width:550px;
+
+padding:40px;
+
+border-radius:25px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.1);
+
+}
+
+
+
+
+
+.product-form h1{
+
+text-align:center;
+
+margin-bottom:35px;
+
+font-size:32px;
+
+color:#2563eb;
+
+}
+
+
+
+
+
+.product-form form{
+
+display:flex;
+
+flex-direction:column;
+
+gap:18px;
+
+}
+
+
+
+
+
+/* Inputs */
+
+
+.product-form input,
+.product-form textarea,
+.product-form select{
+
+
+padding:15px;
+
+border:1px solid #d1d5db;
+
+border-radius:12px;
+
+font-size:16px;
+
+outline:none;
+
+transition:.3s;
+
+background:white;
+
+}
+
+
+
+
+
+.product-form input:focus,
+.product-form textarea:focus,
+.product-form select:focus{
+
+
+border-color:#2563eb;
+
+box-shadow:0 0 8px rgba(37,99,235,.2);
+
+}
+
+
+
+
+
+.product-form textarea{
+
+height:130px;
+
+resize:none;
+
+}
+
+
+
+
+
+.product-form select{
+
+cursor:pointer;
+
+}
+
+
+
+
+
+/* Upload */
+
+
+.upload-label{
+
+font-weight:600;
+
+color:#374151;
+
+margin-top:10px;
+
+}
+
+
+
+
+
+input[type="file"]{
+
+padding:12px;
+
+background:#f8fafc;
+
+cursor:pointer;
+
+}
+
+
+
+
+
+/* Image Preview */
+
+
+.image-preview{
+
+width:180px;
+
+height:180px;
+
+object-fit:cover;
+
+border-radius:15px;
+
+margin:10px auto;
+
+display:block;
+
+box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+}
+
+
+
+
+
+/* Button */
+
+
+.product-form button{
+
+
+padding:16px;
+
+background:#2563eb;
+
+color:white;
+
+border:none;
+
+border-radius:12px;
+
+font-size:18px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+
+
+
+
+.product-form button:hover{
+
+background:#1d4ed8;
+
+transform:translateY(-3px);
+
+}
+
+
+
+
+
+.product-form button:disabled{
+
+background:#94a3b8;
+
+cursor:not-allowed;
+
+transform:none;
+
+}
+
+
+
+
+
+/* Responsive */
+
+
+@media(max-width:600px){
+
+
+.add-product{
+
+padding:25px 15px;
+
+}
+
+
+
+.product-form{
+
+width:100%;
+
+padding:25px;
+
+}
+
+
+
+.product-form h1{
+
+font-size:26px;
+
+}
+
+
+}

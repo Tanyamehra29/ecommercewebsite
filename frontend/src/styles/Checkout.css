@@ -1,0 +1,256 @@
+/* ================= CHECKOUT ================= */
+
+.checkout{
+
+  min-height:90vh;
+
+  padding:60px 20px;
+
+  background:linear-gradient(
+    135deg,
+    #f8fafc,
+    #e0f2fe
+  );
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+}
+
+
+
+/* Heading */
+
+.checkout h1{
+
+  font-size:40px;
+
+  margin-bottom:35px;
+
+  color:#1e293b;
+
+  font-weight:700;
+
+}
+
+
+
+/* Form Card */
+
+.checkout form{
+
+  width:100%;
+
+  max-width:520px;
+
+  background:white;
+
+  padding:40px;
+
+  border-radius:22px;
+
+  box-shadow:
+  0 15px 35px rgba(0,0,0,0.12);
+
+  transition:0.3s;
+
+}
+
+
+
+.checkout form:hover{
+
+  transform:translateY(-5px);
+
+}
+
+
+
+/* Inputs */
+
+
+.checkout input,
+.checkout textarea{
+
+
+  width:100%;
+
+  box-sizing:border-box;
+
+  padding:15px 18px;
+
+  margin:12px 0;
+
+  border-radius:12px;
+
+  border:1px solid #cbd5e1;
+
+  outline:none;
+
+  font-size:16px;
+
+  background:#f8fafc;
+
+  transition:0.3s;
+
+
+}
+
+
+
+.checkout input:focus,
+.checkout textarea:focus{
+
+
+  background:white;
+
+  border-color:#2563eb;
+
+  box-shadow:
+  0 0 10px rgba(37,99,235,0.25);
+
+
+}
+
+
+
+/* Address Box */
+
+
+.checkout textarea{
+
+
+  height:130px;
+
+  resize:none;
+
+}
+
+
+
+/* Total Amount */
+
+
+.checkout h2{
+
+
+  margin:25px 0;
+
+  padding:15px;
+
+  background:#eff6ff;
+
+  border-radius:12px;
+
+  color:#2563eb;
+
+  font-size:24px;
+
+
+}
+
+
+
+/* Button */
+
+
+.checkout button{
+
+
+  width:100%;
+
+  padding:16px;
+
+  margin-top:15px;
+
+  background:#2563eb;
+
+  color:white;
+
+  border:none;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  font-size:18px;
+
+  font-weight:700;
+
+  transition:0.3s;
+
+
+}
+
+
+
+.checkout button:hover{
+
+
+  background:#1d4ed8;
+
+  transform:scale(1.03);
+
+
+}
+
+
+
+/* Loading Button */
+
+
+.checkout button:disabled{
+
+
+  background:#94a3b8;
+
+  cursor:not-allowed;
+
+  transform:none;
+
+
+}
+
+
+
+/* Mobile */
+
+
+@media(max-width:600px){
+
+
+.checkout{
+
+  padding:35px 15px;
+
+}
+
+
+
+.checkout h1{
+
+  font-size:30px;
+
+}
+
+
+
+.checkout form{
+
+  padding:25px;
+
+}
+
+
+
+.checkout h2{
+
+  font-size:20px;
+
+}
+
+
+}

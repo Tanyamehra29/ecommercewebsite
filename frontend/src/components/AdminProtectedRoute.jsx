@@ -1,0 +1,32 @@
+import { Navigate } from "react-router-dom";
+
+
+function AdminProtectedRoute({children}){
+
+
+  const user = JSON.parse(
+    localStorage.getItem("user")
+  );
+
+
+  if(!user){
+
+    return <Navigate to="/login" />;
+
+  }
+
+
+  if(!user.isAdmin){
+
+    return <Navigate to="/" />;
+
+  }
+
+
+  return children;
+
+
+}
+
+
+export default AdminProtectedRoute;

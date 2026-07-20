@@ -1,0 +1,287 @@
+/* ================= EDIT PRODUCT ================= */
+
+
+.edit-product{
+
+min-height:80vh;
+
+background:#f8fafc;
+
+padding:60px 8%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:flex-start;
+
+}
+
+
+
+
+
+.edit-card{
+
+background:white;
+
+width:550px;
+
+padding:40px;
+
+border-radius:25px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.1);
+
+}
+
+
+
+
+
+.edit-card h1{
+
+text-align:center;
+
+font-size:32px;
+
+color:#2563eb;
+
+margin-bottom:35px;
+
+font-weight:800;
+
+}
+
+
+
+
+
+.edit-card form{
+
+display:flex;
+
+flex-direction:column;
+
+gap:18px;
+
+}
+
+
+
+
+
+/* Inputs */
+
+
+.edit-card input,
+.edit-card textarea,
+.edit-card select{
+
+
+padding:15px;
+
+border-radius:12px;
+
+border:1px solid #d1d5db;
+
+font-size:16px;
+
+outline:none;
+
+transition:.3s;
+
+background:white;
+
+}
+
+
+
+
+
+.edit-card input:focus,
+.edit-card textarea:focus,
+.edit-card select:focus{
+
+
+border-color:#2563eb;
+
+box-shadow:0 0 8px rgba(37,99,235,.2);
+
+}
+
+
+
+
+
+.edit-card textarea{
+
+height:130px;
+
+resize:none;
+
+}
+
+
+
+
+
+.edit-card select{
+
+cursor:pointer;
+
+}
+
+
+
+
+
+/* Image Section */
+
+
+.edit-card h3{
+
+margin-top:10px;
+
+color:#374151;
+
+}
+
+
+
+
+
+.preview-image{
+
+width:180px;
+
+height:180px;
+
+object-fit:cover;
+
+border-radius:18px;
+
+display:block;
+
+margin:10px auto;
+
+box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+}
+
+
+
+
+
+input[type="file"]{
+
+background:#f8fafc;
+
+padding:12px;
+
+cursor:pointer;
+
+}
+
+
+
+
+
+/* Button */
+
+
+.edit-card button{
+
+
+padding:16px;
+
+background:#2563eb;
+
+color:white;
+
+border:none;
+
+border-radius:12px;
+
+font-size:18px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+
+
+
+
+.edit-card button:hover{
+
+background:#1d4ed8;
+
+transform:translateY(-3px);
+
+}
+
+
+
+
+
+.edit-card button:disabled{
+
+background:#94a3b8;
+
+cursor:not-allowed;
+
+transform:none;
+
+}
+
+
+
+
+
+/* Responsive */
+
+
+@media(max-width:600px){
+
+
+.edit-product{
+
+padding:25px 15px;
+
+}
+
+
+
+.edit-card{
+
+width:100%;
+
+padding:25px;
+
+}
+
+
+
+.edit-card h1{
+
+font-size:26px;
+
+}
+
+
+
+.preview-image{
+
+width:150px;
+
+height:150px;
+
+}
+
+
+}
