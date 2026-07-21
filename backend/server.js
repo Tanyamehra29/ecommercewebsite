@@ -3,7 +3,6 @@ import cors from "cors";
 
 import "dotenv/config";
 
-
 import connectDB from "./config/db.js";
 
 import productRoutes from "./routes/productRoutes.js";
@@ -12,6 +11,8 @@ import userRoutes from "./routes/userRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import wishlistRoutes from "./routes/wishlistRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+import seedRoute from "./seedRoute.js";
+
 const app = express();
 
 connectDB();
@@ -28,16 +29,24 @@ app.use((req, res, next) => {
   next();
 });
 
+
 app.get("/", (req, res) => {
   res.send("🚀 ShopEase Backend Running");
 });
 
+
+// APIs
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/wishlist", wishlistRoutes);
-app.use("/api/payment", paymentRoutes);   // ✅ Add this
+app.use("/api/payment", paymentRoutes);
+
+
+// Temporary seed route
+app.use("/seed", seedRoute);
+
 
 const PORT = process.env.PORT || 5000;
 
