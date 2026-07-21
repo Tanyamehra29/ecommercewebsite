@@ -1,5 +1,5 @@
-import Order from "../models/order.js";
 
+import Order from "../models/Order.js";
 
 // ================= PLACE ORDER =================
 
