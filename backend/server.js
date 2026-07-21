@@ -11,7 +11,7 @@ import userRoutes from "./routes/userRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import wishlistRoutes from "./routes/wishlistRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
-import seedRoute from "./seedRoute.js";
+
 
 const app = express();
 
@@ -45,7 +45,7 @@ app.use("/api/payment", paymentRoutes);
 
 
 // Temporary seed route
-app.use("/seed", seedRoute);
+
 
 
 const PORT = process.env.PORT || 5000;
