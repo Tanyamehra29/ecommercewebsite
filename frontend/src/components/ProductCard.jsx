@@ -27,7 +27,7 @@ function ProductCard({ product }) {
     try {
 
       await API.post(
-        "/api/wishlist",
+        "/wishlist",
         {
           productId: product._id
         },
