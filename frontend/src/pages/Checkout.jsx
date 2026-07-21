@@ -1,340 +1,157 @@
 import { useState, useContext } from "react";
-import axios from "axios";
+import API from "../api";
 
 import { CartContext } from "../context/CartContext";
 
 import "../styles/Checkout.css";
 
+function Checkout() {
 
-function Checkout(){
+  const { cart, clearCart } = useContext(CartContext);
 
+  const [customer, setCustomer] = useState({
+    name: "",
+    phone: "",
+    address: ""
+  });
 
-const { cart, clearCart } = useContext(CartContext);
+  const [loading, setLoading] = useState(false);
 
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
+  const handleChange = (e) => {
 
-const [customer,setCustomer] = useState({
+    setCustomer({
+      ...customer,
+      [e.target.name]: e.target.value
+    });
 
-  name:"",
-  phone:"",
-  address:""
+  };
 
-});
+  const placeOrder = async (e) => {
 
+    e.preventDefault();
 
+    if (loading) return;
 
-const [loading,setLoading] = useState(false);
+    if (cart.length === 0) {
+      alert("Cart is empty ❌");
+      return;
+    }
 
+    setLoading(true);
 
+    try {
 
+      const response = await API.post(
 
-const totalPrice = cart.reduce(
+        "/orders",
 
-  (sum,item)=> sum + item.price * item.quantity,
+        {
+          customer,
 
-  0
+          products: cart.map((item) => ({
+            product: item._id,
+            quantity: item.quantity
+          })),
 
-);
+          totalPrice,
 
+          paymentStatus: "Pending"
+        },
 
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
 
+      );
 
+      console.log("Order Response:", response.data);
 
-const handleChange = (e)=>{
+      clearCart();
 
+      alert("Order Placed Successfully ✅");
 
-setCustomer({
+      window.location.href = "/myorders";
 
-  ...customer,
+    } catch (error) {
 
-  [e.target.name]: e.target.value
+      console.log(
+        "ORDER ERROR:",
+        error.response?.data || error.message
+      );
 
-});
+      alert(
+        error.response?.data?.message ||
+        "Order Failed ❌"
+      );
 
+    } finally {
 
-};
+      setLoading(false);
 
+    }
 
+  };
 
+  return (
 
+    <div className="checkout">
 
+      <h1>
+        Checkout 🛒
+      </h1>
 
+      <form onSubmit={placeOrder}>
 
-const placeOrder = async(e)=>{
+        <input
+          name="name"
+          placeholder="Full Name"
+          value={customer.name}
+          onChange={handleChange}
+          required
+        />
 
+        <input
+          name="phone"
+          placeholder="Phone Number"
+          value={customer.phone}
+          onChange={handleChange}
+          required
+        />
 
-e.preventDefault();
+        <textarea
+          name="address"
+          placeholder="Delivery Address"
+          value={customer.address}
+          onChange={handleChange}
+          required
+        />
 
+        <h2>
+          Total: ₹{totalPrice}
+        </h2>
 
+        <button
+          type="submit"
+          disabled={loading}
+        >
+          {loading
+            ? "Placing Order..."
+            : "Place Order 🛒"}
+        </button>
 
-if(loading) return;
+      </form>
 
+    </div>
 
-
-if(cart.length === 0){
-
-  alert("Cart is empty ❌");
-
-  return;
+  );
 
 }
-
-
-
-setLoading(true);
-
-
-
-try{
-
-
-const response = await axios.post(
-
-
-"https://ecommercewebsite-kt1z.onrender.com",
-
-
-{
-
-
-customer,
-
-
-products: cart.map(item=>(
-
-{
-
-product:item._id,
-
-quantity:item.quantity
-
-}
-
-)),
-
-
-totalPrice,
-
-
-paymentStatus:"Pending"
-
-
-},
-
-
-
-{
-
-headers:{
-
-
-Authorization:
-
-`Bearer ${localStorage.getItem("token")}`
-
-
-}
-
-}
-
-
-);
-
-
-
-
-
-console.log(
-
-"Order Response:",
-
-response.data
-
-);
-
-
-
-
-
-// clear cart after successful order
-
-clearCart();
-
-
-
-
-alert("Order Placed Successfully ✅");
-
-
-
-window.location.href="/myorders";
-
-
-
-}
-
-
-
-catch(error){
-
-
-console.log(
-
-"ORDER ERROR:",
-
-error.response?.data || error.message
-
-);
-
-
-
-alert(
-
-error.response?.data?.message ||
-
-"Order Failed ❌"
-
-);
-
-
-
-}
-
-
-
-finally{
-
-
-setLoading(false);
-
-
-}
-
-
-
-};
-
-
-
-
-
-
-
-
-return(
-
-
-<div className="checkout">
-
-
-<h1>
-Checkout 🛒
-</h1>
-
-
-
-
-<form onSubmit={placeOrder}>
-
-
-<input
-
-name="name"
-
-placeholder="Full Name"
-
-value={customer.name}
-
-onChange={handleChange}
-
-required
-
-/>
-
-
-
-
-
-<input
-
-name="phone"
-
-placeholder="Phone Number"
-
-value={customer.phone}
-
-onChange={handleChange}
-
-required
-
-/>
-
-
-
-
-
-<textarea
-
-name="address"
-
-placeholder="Delivery Address"
-
-value={customer.address}
-
-onChange={handleChange}
-
-required
-
-/>
-
-
-
-
-
-<h2>
-
-Total: ₹{totalPrice}
-
-</h2>
-
-
-
-
-
-<button disabled={loading}>
-
-
-{
-
-loading
-
-?
-
-"Placing Order..."
-
-:
-
-"Place Order 🛒"
-
-}
-
-
-
-</button>
-
-
-
-
-</form>
-
-
-</div>
-
-
-);
-
-
-}
-
 
 export default Checkout;

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-
+import API from "../api";
 import ProductCard from "../components/ProductCard";
 import Loader from "../components/Loader";
 
@@ -23,6 +22,7 @@ function Products() {
 
 
 
+
   useEffect(()=>{
 
 
@@ -32,17 +32,35 @@ function Products() {
       try{
 
 
-        const res = await axios.get(
-          "https://ecommercewebsite-kt1z.onrender.com"
+        const res = await API.get("/products");
+
+        console.log(
+          "Products:",
+          res.data
         );
 
 
-        const validProducts = res.data.filter(
-          item=>item._id
-        );
+
+        if(Array.isArray(res.data)){
 
 
-        setProducts(validProducts);
+          const validProducts = res.data.filter(
+            item=>item._id
+          );
+
+
+          setProducts(validProducts);
+
+
+        }
+        else{
+
+
+          setProducts([]);
+
+
+        }
+
 
 
       }
@@ -50,17 +68,26 @@ function Products() {
 
       catch(error){
 
+
         console.log(
+
           "Product Fetch Error:",
           error
+
         );
+
+
+        setProducts([]);
+
 
       }
 
 
       finally{
 
+
         setLoading(false);
+
 
       }
 
@@ -68,10 +95,14 @@ function Products() {
     };
 
 
+
     fetchProducts();
 
 
+
   },[]);
+
+
 
 
 
@@ -81,20 +112,30 @@ function Products() {
 
 
     const searchMatch =
+
       item.title
       ?.toLowerCase()
-      .includes(search.toLowerCase());
+      .includes(
+        search.toLowerCase()
+      );
+
 
 
 
     const categoryMatch =
+
       category==="All" ||
-      item.category?.toLowerCase()
-      === category.toLowerCase();
+
+      item.category
+      ?.toLowerCase()
+      ===
+      category.toLowerCase();
+
 
 
 
     return searchMatch && categoryMatch;
+
 
 
   });
@@ -103,32 +144,54 @@ function Products() {
 
 
 
+
+
   if(sort==="low"){
 
+
     filteredProducts.sort(
-      (a,b)=>a.price-b.price
+
+      (a,b)=>
+      a.price-b.price
+
     );
 
+
   }
+
+
+
 
 
 
   if(sort==="high"){
 
+
     filteredProducts.sort(
-      (a,b)=>b.price-a.price
+
+      (a,b)=>
+      b.price-a.price
+
     );
 
+
   }
+
+
+
 
 
 
 
   if(loading){
 
+
     return <Loader/>;
 
+
   }
+
+
 
 
 
@@ -136,23 +199,38 @@ function Products() {
 
   return (
 
+
     <div className="products-page">
+
+
+
 
 
       <div className="products-header">
 
 
+
         <h1>
+
           🛍️ Explore Products
+
         </h1>
 
 
+
+
         <p>
+
           Find the best products at amazing prices
+
         </p>
 
 
+
       </div>
+
+
+
 
 
 
@@ -162,17 +240,26 @@ function Products() {
       <div className="filter-section">
 
 
+
+
+
         <input
+
 
           type="text"
 
+
           placeholder="🔍 Search products..."
+
 
           value={search}
 
+
           onChange={
-            (e)=>setSearch(e.target.value)
+            (e)=>
+            setSearch(e.target.value)
           }
+
 
         />
 
@@ -180,38 +267,71 @@ function Products() {
 
 
 
+
+
+
+
         <select
+
 
           value={category}
 
+
           onChange={
-            (e)=>setCategory(e.target.value)
+            (e)=>
+            setCategory(e.target.value)
           }
+
 
         >
 
-          <option>
+
+          <option value="All">
+
             All
+
           </option>
 
-          <option>
+
+
+          <option value="Shoes">
+
             Shoes
+
           </option>
 
-          <option>
+
+
+          <option value="Electronics">
+
             Electronics
+
           </option>
 
-          <option>
+
+
+          <option value="Mobiles">
+
             Mobiles
+
           </option>
 
-          <option>
+
+
+          <option value="Headphones">
+
             Headphones
+
           </option>
+
+
 
 
         </select>
+
+
+
+
 
 
 
@@ -219,30 +339,60 @@ function Products() {
 
         <select
 
+
           value={sort}
 
+
           onChange={
-            (e)=>setSort(e.target.value)
+            (e)=>
+            setSort(e.target.value)
           }
+
 
         >
 
+
+
           <option value="">
+
+
             Sort By
+
+
           </option>
+
+
+
 
 
           <option value="low">
+
+
             Price Low → High
+
+
           </option>
+
+
+
 
 
           <option value="high">
+
+
             Price High → Low
+
+
           </option>
 
 
+
+
+
         </select>
+
+
+
 
 
       </div>
@@ -252,11 +402,20 @@ function Products() {
 
 
 
+
+
+
       <h3 className="product-count">
+
 
         {filteredProducts.length} Products Found
 
+
+
       </h3>
+
+
+
 
 
 
@@ -266,47 +425,72 @@ function Products() {
       <div className="product-grid">
 
 
+
+
+
         {
 
-        filteredProducts.length > 0 ?
 
-
-        filteredProducts.map((product)=>(
-
-
-          <ProductCard
-
-            key={product._id}
-
-            product={product}
-
-          />
-
-
-        ))
+          filteredProducts.length > 0 ?
 
 
 
-        :
+          filteredProducts.map((product)=>(
 
 
-        <h2>
-          No Products Available 😔
-        </h2>
+
+            <ProductCard
+
+
+              key={product._id}
+
+
+              product={product}
+
+
+            />
+
+
+
+          ))
+
+
+
+          :
+
+
+
+          <h2>
+
+            No Products Available 😔
+
+          </h2>
+
 
 
         }
+
+
+
 
 
       </div>
 
 
 
+
+
+
+
     </div>
+
+
 
   );
 
+
 }
+
 
 
 export default Products;

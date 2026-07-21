@@ -1,219 +1,125 @@
 import { useState } from "react";
-import axios from "axios";
+import API from "../api";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import "../styles/Auth.css";
 
+function Login() {
 
-function Login(){
+  const navigate = useNavigate();
 
-const navigate = useNavigate();
+  const [form, setForm] = useState({
+    email: "",
+    password: ""
+  });
 
+  const handleChange = (e) => {
 
-const [form,setForm]=useState({
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
 
-email:"",
-password:""
+  };
 
-});
+  const submit = async (e) => {
 
+    e.preventDefault();
 
+    try {
 
-const handleChange=(e)=>{
+      const res = await API.post(
+        "/users/login",
+        form
+      );
 
-setForm({
+      localStorage.setItem(
+        "token",
+        res.data.token
+      );
 
-...form,
+      localStorage.setItem(
+        "user",
+        JSON.stringify(res.data.user)
+      );
 
-[e.target.name]:e.target.value
+      toast.success("Login Successful ✅");
 
-});
+      if (res.data.user.isAdmin) {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
 
-};
+      window.location.reload();
 
+    } catch (error) {
 
+      toast.error(
+        error.response?.data?.message ||
+        "Login Failed ❌"
+      );
 
+    }
 
-const submit=async(e)=>{
+  };
 
-e.preventDefault();
+  return (
 
+    <div className="auth-container">
 
-try{
+      <div className="auth-card">
 
+        <h1>
+          Welcome Back 👋
+        </h1>
 
-const res=await axios.post(
+        <p>
+          Login to continue shopping
+        </p>
 
-"https://ecommercewebsite-kt1z.onrender.com",
+        <form onSubmit={submit}>
 
-form
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
 
-);
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
 
+          <button type="submit">
+            Login
+          </button>
 
+        </form>
 
-localStorage.setItem(
+        <p>
+          Don't have an account?
 
-"token",
+          <Link to="/signup">
+            {" "}Signup
+          </Link>
 
-res.data.token
+        </p>
 
-);
+      </div>
 
+    </div>
 
-
-localStorage.setItem(
-
-"user",
-
-JSON.stringify(res.data.user)
-
-);
-
-
-
-toast.success("Login Successful ✅");
-
-
-if(res.data.user.isAdmin)
-
-navigate("/admin");
-
-else
-
-navigate("/");
-
-
-window.location.reload();
-
-
+  );
 
 }
-
-catch(error){
-
-
-toast.error(
-
-error.response?.data?.message ||
-
-"Login Failed ❌"
-
-);
-
-
-}
-
-
-};
-
-
-
-
-
-return(
-
-
-<div className="auth-container">
-
-
-<div className="auth-card">
-
-
-<h1>
-
-Welcome Back 👋
-
-</h1>
-
-
-<p>
-
-Login to continue shopping
-
-</p>
-
-
-
-
-<form onSubmit={submit}>
-
-
-<input
-
-type="email"
-
-name="email"
-
-placeholder="Email"
-
-value={form.email}
-
-onChange={handleChange}
-
-required
-
-/>
-
-
-
-<input
-
-type="password"
-
-name="password"
-
-placeholder="Password"
-
-value={form.password}
-
-onChange={handleChange}
-
-required
-
-/>
-
-
-
-
-<button>
-
-Login
-
-</button>
-
-
-
-</form>
-
-
-
-
-<p>
-
-Don't have an account?
-
-<Link to="/signup">
-
- Signup
-
-</Link>
-
-</p>
-
-
-
-</div>
-
-
-</div>
-
-
-);
-
-
-}
-
 
 export default Login;

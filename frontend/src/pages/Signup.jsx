@@ -1,212 +1,117 @@
 import { useState } from "react";
-import axios from "axios";
-import {useNavigate,Link} from "react-router-dom";
+import API from "../api";
+import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import "../styles/Auth.css";
 
+function Signup() {
 
-function Signup(){
+  const navigate = useNavigate();
 
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
 
-const navigate=useNavigate();
+  const handleChange = (e) => {
 
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
 
-const [form,setForm]=useState({
+  };
 
-name:"",
-email:"",
-password:""
+  const submit = async (e) => {
 
-});
+    e.preventDefault();
 
+    try {
 
+      await API.post(
+        "/users/signup",
+        form
+      );
 
-const handleChange=(e)=>{
+      toast.success("Account Created Successfully ✅");
 
+      navigate("/login");
 
-setForm({
+    } catch (error) {
 
-...form,
+      console.log(error);
 
-[e.target.name]:e.target.value
+      toast.error(
+        error.response?.data?.message ||
+        "Signup Failed ❌"
+      );
 
-});
+    }
 
+  };
 
-};
+  return (
 
+    <div className="auth-container">
 
+      <div className="auth-card">
 
+        <h1>
+          Create Account 🚀
+        </h1>
 
+        <p>
+          Join ShopEase today
+        </p>
 
-const submit=async(e)=>{
+        <form onSubmit={submit}>
 
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
 
-e.preventDefault();
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
 
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
 
+          <button type="submit">
+            Signup
+          </button>
 
-try{
+        </form>
 
+        <p>
+          Already have an account?
+          <Link to="/login"> Login</Link>
+        </p>
 
-await axios.post(
+      </div>
 
-"https://ecommercewebsite-kt1z.onrender.com",
+    </div>
 
-form
-
-);
-
-
-
-toast.success(
-
-"Account Created ✅"
-
-);
-
-
-navigate("/login");
-
+  );
 
 }
-
-
-catch(error){
-
-
-toast.error(
-
-error.response?.data?.message ||
-
-"Signup Failed"
-
-);
-
-
-}
-
-
-
-};
-
-
-
-
-return(
-
-
-<div className="auth-container">
-
-
-<div className="auth-card">
-
-
-<h1>
-
-Create Account 🚀
-
-</h1>
-
-
-<p>
-
-Join ShopEase today
-
-</p>
-
-
-
-<form onSubmit={submit}>
-
-
-<input
-
-name="name"
-
-placeholder="Full Name"
-
-value={form.name}
-
-onChange={handleChange}
-
-required
-
-/>
-
-
-
-<input
-
-type="email"
-
-name="email"
-
-placeholder="Email"
-
-value={form.email}
-
-onChange={handleChange}
-
-required
-
-/>
-
-
-
-<input
-
-type="password"
-
-name="password"
-
-placeholder="Password"
-
-value={form.password}
-
-onChange={handleChange}
-
-required
-
-/>
-
-
-
-<button>
-
-Signup
-
-</button>
-
-
-</form>
-
-
-
-<p>
-
-Already have account?
-
-<Link to="/login">
-
- Login
-
-</Link>
-
-</p>
-
-
-</div>
-
-
-</div>
-
-
-);
-
-
-}
-
 
 export default Signup;

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../api";
 
 import ProductCard from "../components/ProductCard";
 import Loader from "../components/Loader";
@@ -11,41 +11,58 @@ import "../styles/Home.css";
 function Home() {
 
 
-  const [products,setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
 
-  const [loading,setLoading] = useState(true);
-
-
-
-  useEffect(()=>{
+  const [loading, setLoading] = useState(true);
 
 
-    const fetchProducts = async()=>{
+
+  useEffect(() => {
 
 
-      try{
+    const fetchProducts = async () => {
 
 
-        const res = await axios.get(
-          "https://ecommercewebsite-kt1z.onrender.com"
-        );
+      try {
 
 
-        setProducts(res.data);
+        
+const res = await API.get("/products");
+
+        console.log("Products:", res.data);
+
+
+        if(Array.isArray(res.data)){
+
+          setProducts(res.data);
+
+        }
+        else{
+
+          setProducts([]);
+
+        }
 
 
       }
       catch(error){
+
 
         console.log(
           "Product Fetch Error:",
           error
         );
 
+
+        setProducts([]);
+
+
       }
       finally{
 
+
         setLoading(false);
+
 
       }
 
@@ -56,13 +73,18 @@ function Home() {
     fetchProducts();
 
 
-  },[]);
+  }, []);
 
 
 
 
-  if(loading)
+
+  if(loading){
+
     return <Loader />;
+
+  }
+
 
 
 
@@ -94,13 +116,16 @@ function Home() {
 
 
 
+
 return(
+
 
 <div className="home">
 
 
 
 {/* HERO */}
+
 
 <section className="hero">
 
@@ -117,12 +142,14 @@ Live Better 🛍️
 </h1>
 
 
+
 <p>
 
 Discover premium products at amazing prices.
 Shoes, electronics and more delivered to your doorstep.
 
 </p>
+
 
 
 
@@ -139,6 +166,7 @@ Shop Now →
 
 
 </div>
+
 
 
 
@@ -165,7 +193,12 @@ alt="shopping"
 
 
 
+
+
+
 {/* CATEGORY */}
+
+
 
 <section className="categories">
 
@@ -175,6 +208,7 @@ alt="shopping"
 Explore Categories
 
 </h2>
+
 
 
 
@@ -202,6 +236,7 @@ key={index}
 </div>
 
 
+
 <h3>
 
 {item.name}
@@ -213,6 +248,7 @@ key={index}
 
 
 ))
+
 
 }
 
@@ -228,7 +264,10 @@ key={index}
 
 
 
+
+
 {/* PRODUCTS */}
+
 
 
 <section className="products-section">
@@ -244,6 +283,7 @@ Trending Products
 </h2>
 
 
+
 <Link to="/products">
 
 View All →
@@ -257,6 +297,8 @@ View All →
 
 
 
+
+
 <div className="product-grid">
 
 
@@ -265,7 +307,7 @@ View All →
 products.length > 0 ?
 
 
-products.slice(0,4).map(product=>(
+products.slice(0,4).map((product)=>(
 
 
 <ProductCard
@@ -282,6 +324,7 @@ product={product}
 
 :
 
+
 <h3>
 
 No Products Available
@@ -292,11 +335,14 @@ No Products Available
 }
 
 
+
 </div>
 
 
 
 </section>
+
+
 
 
 
@@ -319,13 +365,16 @@ Why Choose ShopEase?
 
 
 
+
 <div className="feature-grid">
 
 
 
 <div className="feature-card">
 
-<h2>🚚</h2>
+<h2>
+🚚
+</h2>
 
 <h3>
 Fast Delivery
@@ -340,17 +389,24 @@ Quick and reliable delivery.
 
 
 
+
 <div className="feature-card">
 
-<h2>🔒</h2>
+
+<h2>
+🔒
+</h2>
+
 
 <h3>
 Secure Payment
 </h3>
 
+
 <p>
 Safe online transactions.
 </p>
+
 
 </div>
 
@@ -358,36 +414,54 @@ Safe online transactions.
 
 
 
+
+
 <div className="feature-card">
 
-<h2>⭐</h2>
+
+<h2>
+⭐
+</h2>
+
 
 <h3>
 Quality Products
 </h3>
 
+
 <p>
 Trusted products at best prices.
 </p>
 
+
 </div>
+
+
+
 
 
 
 
 <div className="feature-card">
 
-<h2>🔄</h2>
+
+<h2>
+🔄
+</h2>
+
 
 <h3>
 Easy Returns
 </h3>
 
+
 <p>
 Simple return process.
 </p>
 
+
 </div>
+
 
 
 
@@ -400,7 +474,12 @@ Simple return process.
 
 
 
+
+
+
+
 {/* REVIEWS */}
+
 
 
 <section className="reviews">
@@ -414,23 +493,28 @@ What Customers Say
 
 
 
+
 <div className="review-grid">
 
 
 
 <div className="review-card">
 
+
 <h3>
 ⭐⭐⭐⭐⭐
 </h3>
+
 
 <p>
 Amazing shopping experience.
 </p>
 
+
 <b>
 - Rahul
 </b>
+
 
 </div>
 
@@ -438,21 +522,29 @@ Amazing shopping experience.
 
 
 
+
+
 <div className="review-card">
+
 
 <h3>
 ⭐⭐⭐⭐⭐
 </h3>
+
 
 <p>
 Fast delivery and good quality.
 </p>
 
+
 <b>
 - Priya
 </b>
 
+
 </div>
+
+
 
 
 
@@ -460,19 +552,25 @@ Fast delivery and good quality.
 
 <div className="review-card">
 
+
 <h3>
 ⭐⭐⭐⭐⭐
 </h3>
+
 
 <p>
 Best ecommerce website.
 </p>
 
+
 <b>
 - Aman
 </b>
 
+
 </div>
+
+
 
 
 
