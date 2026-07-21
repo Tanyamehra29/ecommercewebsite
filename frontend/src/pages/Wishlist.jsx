@@ -37,7 +37,7 @@ try{
 
 const res = await axios.get(
 
-"http://localhost:5000/api/wishlist",
+"https://ecommercewebsite-kt1z.onrender.com",
 
 {
 
@@ -125,7 +125,7 @@ try{
 
 await axios.delete(
 
-`http://localhost:5000/api/wishlist/${id}`,
+`https://ecommercewebsite-kt1z.onrender.com${id}`,
 
 {
 

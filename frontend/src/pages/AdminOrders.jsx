@@ -19,7 +19,7 @@ try{
 
 const res=await axios.get(
 
-"http://localhost:5000/api/orders",
+"https://ecommercewebsite-kt1z.onrender.com",
 
 {
 
@@ -74,7 +74,7 @@ try{
 
 await axios.put(
 
-`http://localhost:5000/api/orders/${id}`,
+`https://ecommercewebsite-kt1z.onrender.com${id}`,
 
 {
 

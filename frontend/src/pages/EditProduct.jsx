@@ -192,7 +192,7 @@ image
 await axios.put(
 
 
-`http://localhost:5000/api/products/${id}`,
+`https://ecommercewebsite-kt1z.onrender.com${id}`,
 
 formData,
 

@@ -46,7 +46,7 @@ function ProductCard({ product }) {
 
       await axios.post(
 
-        "http://localhost:5000/api/wishlist",
+        "https://ecommercewebsite-kt1z.onrender.com",
 
         {
           productId:product._id

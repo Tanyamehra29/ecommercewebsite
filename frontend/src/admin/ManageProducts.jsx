@@ -20,7 +20,7 @@ function ManageProducts() {
     try {
 
       const res = await axios.get(
-        "http://localhost:5000/api/products"
+      " https://ecommercewebsite-kt1z.onrender.com"
       );
 
       setProducts(res.data);
@@ -66,7 +66,7 @@ function ManageProducts() {
 
 
       await axios.delete(
-        `http://localhost:5000/api/products/${id}`
+       " https://ecommercewebsite-kt1z.onrender.com"
       );
 
 
