@@ -1,319 +1,242 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../api";
 import Loader from "../components/Loader";
 
 import "../styles/MyOrders.css";
 
+function MyOrders() {
 
-function MyOrders(){
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-const [orders,setOrders]=useState([]);
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
-const [loading,setLoading]=useState(true);
+  const fetchOrders = async () => {
 
+    try {
 
+      const res = await API.get(
+        "/orders/myorders",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
+      const data = Array.isArray(res.data)
+        ? res.data
+        : res.data.orders || [];
 
+      setOrders(data);
 
-useEffect(()=>{
+    } catch (error) {
 
-fetchOrders();
+      console.log("Orders Error:", error);
 
-},[]);
+      setOrders([]);
 
+    } finally {
 
+      setLoading(false);
 
+    }
 
+  };
 
-const fetchOrders=async()=>{
+  const getStatusClass = (status) => {
 
-try{
+    switch (status) {
 
-const res=await axios.get(
+      case "Delivered":
+        return "delivered";
 
-"https://ecommercewebsite-kt1z.onrender.com",
+      case "Shipped":
+        return "shipped";
 
-{
+      case "Packed":
+        return "packed";
 
-headers:{
+      default:
+        return "pending";
 
-Authorization:
+    }
 
-`Bearer ${localStorage.getItem("token")}`
+  };
 
-}
+  const getProgress = (status) => {
 
-}
+    switch (status) {
 
-);
+      case "Pending":
+        return 25;
 
-setOrders(res.data);
+      case "Packed":
+        return 50;
 
-}
+      case "Shipped":
+        return 75;
 
-catch(error){
+      case "Delivered":
+        return 100;
 
-console.log(error);
+      default:
+        return 0;
 
-}
+    }
 
-finally{
+  };
 
-setLoading(false);
+  if (loading) {
 
-}
+    return <Loader />;
 
-};
+  }
 
+  return (
 
+    <div className="my-orders">
 
+      <h1>
+        📦 My Orders
+      </h1>
 
+      {
 
+        orders.length === 0 ?
 
-const getStatusClass=(status)=>{
+          <div className="empty-orders">
 
-switch(status){
+            <h2>No Orders Yet 😔</h2>
 
-case "Delivered":
+            <p>Start shopping to place your first order.</p>
 
-return "delivered";
+          </div>
 
-case "Shipped":
+          :
 
-return "shipped";
+          orders.map((order) => (
 
-case "Packed":
+            <div
+              className="order-card"
+              key={order._id}
+            >
 
-return "packed";
+              <div className="order-top">
 
-default:
+                <div>
 
-return "pending";
+                  <h3>
 
-}
+                    Order #
 
-};
+                    {order._id.slice(-8)}
 
+                  </h3>
 
+                  <p>
 
+                    📅 {new Date(order.createdAt).toLocaleDateString()}
 
+                  </p>
 
-const getProgress=(status)=>{
+                </div>
 
-switch(status){
+                <span
+                  className={`status ${getStatusClass(order.status)}`}
+                >
 
-case "Pending":
+                  {order.status || "Pending"}
 
-return 25;
+                </span>
 
-case "Packed":
+              </div>
 
-return 50;
+              <div className="progress-box">
 
-case "Shipped":
+                <div className="progress">
 
-return 75;
+                  <div
+                    className="progress-fill"
+                    style={{
+                      width: `${getProgress(order.status)}%`,
+                    }}
+                  ></div>
 
-case "Delivered":
+                </div>
 
-return 100;
+              </div>
 
-default:
+              <div className="products-list">
 
-return 0;
+                {
 
-}
+                  order.products?.map((item) => (
 
-};
+                    <div
+                      className="product-row"
+                      key={item._id || item.product?._id}
+                    >
 
+                      <img
+                        src={
+                          item.product?.image ||
+                          "https://via.placeholder.com/80"
+                        }
+                        alt={item.product?.title}
+                      />
 
+                      <div>
 
+                        <h4>
 
+                          {item.product?.title || "Product"}
 
+                        </h4>
 
-if(loading){
+                        <p>
 
-return <Loader/>;
+                          Quantity : {item.quantity}
 
-}
+                        </p>
 
+                      </div>
 
+                    </div>
 
+                  ))
 
+                }
 
-return(
+              </div>
 
-<div className="my-orders">
+              <div className="order-bottom">
 
-<h1>
+                <h2>
 
-📦 My Orders
+                  ₹{order.totalPrice}
 
-</h1>
+                </h2>
 
+                <p>
 
+                  {order.products?.length || 0} Item(s)
 
+                </p>
 
-{
+              </div>
 
-orders.length===0
+            </div>
 
-?
+          ))
 
-<div className="empty-orders">
+      }
 
-<h2>No Orders Yet 😔</h2>
+    </div>
 
-<p>Start shopping to place your first order.</p>
-
-</div>
-
-:
-
-orders.map((order)=>(
-
-<div
-
-className="order-card"
-
-key={order._id}
-
->
-
-<div className="order-top">
-
-<div>
-
-<h3>
-
-Order #
-
-{order._id.slice(-8)}
-
-</h3>
-
-<p>
-
-📅 {new Date(order.createdAt).toLocaleDateString()}
-
-</p>
-
-</div>
-
-<span
-
-className={`status ${getStatusClass(order.status)}`}
-
->
-
-{order.status}
-
-</span>
-
-</div>
-
-
-
-
-<div className="progress-box">
-
-<div className="progress">
-
-<div
-
-className="progress-fill"
-
-style={{
-
-width:`${getProgress(order.status)}%`
-
-}}
-
-></div>
-
-</div>
-
-</div>
-
-
-
-
-
-<div className="products-list">
-
-{
-
-order.products.map((item)=>(
-
-<div
-
-className="product-row"
-
-key={item._id}
-
->
-
-<img
-
-src={item.product?.image}
-
-alt={item.product?.title}
-
-/>
-
-<div>
-
-<h4>
-
-{item.product?.title}
-
-</h4>
-
-<p>
-
-Quantity : {item.quantity}
-
-</p>
-
-</div>
-
-</div>
-
-))
-
-}
-
-</div>
-
-
-
-
-
-<div className="order-bottom">
-
-<h2>
-
-₹{order.totalPrice}
-
-</h2>
-
-<p>
-
-{order.products.length} Item(s)
-
-</p>
-
-</div>
-
-</div>
-
-))
-
-}
-
-</div>
-
-);
+  );
 
 }
 

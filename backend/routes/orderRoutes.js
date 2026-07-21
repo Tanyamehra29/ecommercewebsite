@@ -1,93 +1,49 @@
 import express from "express";
 
-
 import {
-
   placeOrder,
-
   getAllOrders,
-
   getMyOrders,
-
-  updateOrderStatus
-
+  updateOrderStatus,
 } from "../controllers/orderController.js";
 
-
 import authMiddleware from "../middleware/authMiddleware.js";
-
 import adminMiddleware from "../middleware/adminMiddleware.js";
-
-
 
 const router = express.Router();
 
+// ================= USER =================
 
-
-
-// User Place Order
-
+// Place Order
 router.post(
-
   "/",
-
   authMiddleware,
-
   placeOrder
-
 );
 
-
-
-
-// User My Orders
-
+// My Orders
 router.get(
-
   "/myorders",
-
   authMiddleware,
-
   getMyOrders
-
 );
 
+// ================= ADMIN =================
 
-
-
-
-// Admin Get All Orders
-
+// Get All Orders
 router.get(
-
   "/",
-
   authMiddleware,
-
   adminMiddleware,
-
   getAllOrders
-
 );
 
-
-
-
-
-// Admin Update Order Status
-
+// Update Order Status
 router.put(
-
   "/:id",
-
   authMiddleware,
-
   adminMiddleware,
-
   updateOrderStatus
-
 );
-
-
 
 export default router;

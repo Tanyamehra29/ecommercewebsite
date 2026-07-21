@@ -1,4 +1,5 @@
 import express from "express";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 import {
   addWishlist,
@@ -6,25 +7,23 @@ import {
   removeWishlist,
 } from "../controllers/wishlistController.js";
 
-import authMiddleware from "../middleware/authMiddleware.js";
-
 const router = express.Router();
 
-// ================= ADD TO WISHLIST =================
+// Add product to wishlist
 router.post(
   "/",
   authMiddleware,
   addWishlist
 );
 
-// ================= GET WISHLIST =================
+// Get user's wishlist
 router.get(
   "/",
   authMiddleware,
   getWishlist
 );
 
-// ================= REMOVE FROM WISHLIST =================
+// Remove product from wishlist
 router.delete(
   "/:productId",
   authMiddleware,
